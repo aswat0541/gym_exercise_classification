@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Exercise Experience Prediction | ML + DL Project</title>
+    <title>Gym Exercise Classification | Safe Workout Recommender</title>
     <style>
         * {
             margin: 0;
@@ -48,6 +48,10 @@
             border-left: 5px solid #2a5298;
             padding-left: 15px;
             margin-bottom: 20px;
+        }
+        h3 {
+            margin: 15px 0 10px 0;
+            color: #2a5298;
         }
         table {
             width: 100%;
@@ -115,13 +119,25 @@
             border-radius: 4px;
             font-family: monospace;
         }
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        .pipeline {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 <header>
     <div class="container">
-        <h1>🏋️ Gym Exercise Experience Level Prediction</h1>
-        <p class="tagline">Machine Learning + Deep Learning for personalised workout recommendations</p>
+        <h1>🏋️ Gym Exercise Classification</h1>
+        <p class="tagline">Personalized Workout Recommendation & Risk Flagging System using ML + DL</p>
     </div>
 </header>
 
@@ -129,26 +145,54 @@
     <!-- Problem Statement -->
     <div class="section">
         <h2>📌 Problem Statement</h2>
-        <p>Predict a user's experience level (Beginner / Intermediate / Advanced) based on gym session data such as age, BMI, heart rate, calories burned, workout type, and frequency. This helps fitness apps personalise training plans and prevent injuries.</p>
+        <p><strong>Title:</strong> Personalized Workout Recommendation and Risk Flagging System Using Machine Learning</p>
+        <p><strong>Problem:</strong> Many individuals engage in physical exercises that are incompatible with their personal health conditions, leading to increased risk of injury, exacerbation of existing medical issues, or adverse health outcomes. Common fitness apps and generic workout plans do not account for individual physiological parameters such as age, BMI, heart rate patterns, or pre-existing conditions. This lack of personalization poses a significant safety concern, especially for beginners or those with underlying health risks.</p>
+        <p><strong>Objective:</strong> To develop a machine learning-based classification system that analyzes user health data (e.g., age, BMI, heart rate, workout history) and recommends suitable workout types while flagging exercises that should be avoided. The system aims to improve exercise safety and effectiveness by providing personalized, data-driven guidance.</p>
+        <p><strong>Outcome:</strong> A predictive model that classifies users into appropriate exercise categories (e.g., cardio, strength, HIIT, yoga) and identifies potentially harmful activities based on their unique health profile, thereby reducing injury risk and promoting safer fitness practices.</p>
     </div>
 
-    <!-- Dataset -->
+    <!-- Pipeline Diagram (text description) -->
     <div class="section">
-        <h2>📊 Dataset</h2>
-        <p><strong>Source:</strong> Synthetic gym tracking data (973 records, 15 features).</p>
-        <p><strong>Features:</strong> Age, Gender, Weight, Height, Max_BPM, Avg_BPM, Resting_BPM, Session Duration, Calories Burned, Workout Type, Fat Percentage, Water Intake, Workout Frequency, BMI (engineered BMI_Class and HR_Burn_Ratio).</p>
+        <h2>🔁 Pipeline Diagram</h2>
+        <div class="pipeline">
+            📊 Data Collection (gym_data.csv) → 🧹 Preprocessing (Imputation, Scaling, Encoding) → 🛠️ Feature Engineering (BMI_Class, HR_Burn_Ratio) → 🔀 Train/Validation/Test Split (64/16/20) → 🤖 ML Models (RF, LR, DT, SVM, KNN) + 🧠 Deep Learning (NN) → 📈 Evaluation & Comparison → 🎯 Best Model → 🌐 Deployment (GitHub Pages)
+        </div>
+    </div>
+
+    <!-- Dataset Details -->
+    <div class="section">
+        <h2>📊 Dataset Details</h2>
+        <p><strong>Source:</strong> Synthetic gym tracking data.</p>
+        <p><strong>Size:</strong> 973 records, 15 features.</p>
+        <p><strong>Features:</strong> Age, Gender, Weight (kg), Height (m), Max_BPM, Avg_BPM, Resting_BPM, Session_Duration (hours), Calories_Burned, Workout_Type, Fat_Percentage, Water_Intake (liters), Workout_Frequency (days/week), BMI (engineered BMI_Class and HR_Burn_Ratio).</p>
         <p><strong>Target:</strong> Experience_Level (1 = Beginner, 2 = Intermediate, 3 = Advanced).</p>
+        <p><strong>Class Distribution:</strong> Beginner 41.7%, Intermediate 38.6%, Advanced 19.6%.</p>
     </div>
 
-    <!-- Models & Performance -->
+    <!-- Models Details -->
     <div class="section">
-        <h2>🤖 Models Implemented</h2>
+        <h2>🤖 Models Used</h2>
+        <h3>Machine Learning (Scikit-learn)</h3>
         <ul>
-            <li><strong>Machine Learning:</strong> Random Forest, Logistic Regression, Decision Tree, SVM, KNN (with hyperparameter tuning).</li>
-            <li><strong>Deep Learning:</strong> 3-layer Neural Network (128-64-32 neurons) with Dropout, BatchNormalisation, EarlyStopping, and ReduceLROnPlateau.</li>
+            <li>Random Forest (n_estimators=100,200; max_depth=10,20,None)</li>
+            <li>Logistic Regression (C=0.1,1,10; max_iter=1000)</li>
+            <li>Decision Tree (max_depth=5,10,20,None)</li>
+            <li>Support Vector Machine (C=0.1,1,10; kernel=rbf,linear)</li>
+            <li>K-Nearest Neighbors (n_neighbors=3,5,7,9)</li>
         </ul>
+        <h3>Deep Learning (TensorFlow/Keras)</h3>
+        <ul>
+            <li>3-layer Feedforward Neural Network: 128 → 64 → 32 neurons</li>
+            <li>Activation: ReLU (hidden), Softmax (output)</li>
+            <li>Optimiser: Adam (learning rate 0.001, adaptive reduction)</li>
+            <li>Regularisation: Dropout (0.3), BatchNormalisation</li>
+            <li>Callbacks: EarlyStopping (patience=10), ReduceLROnPlateau (factor=0.5, patience=5)</li>
+        </ul>
+    </div>
 
-        <h3>📈 Test Set Performance</h3>
+    <!-- Performance Table -->
+    <div class="section">
+        <h2>📈 Test Set Performance</h2>
         <table>
             <thead>
                 <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th></tr>
@@ -162,12 +206,12 @@
                 <tr><td>KNN</td><td>0.8410</td><td>0.8416</td><td>0.8410</td><td>0.8406</td></tr>
             </tbody>
         </table>
-        <p>✅ <strong>Best model:</strong> Decision Tree (92.3% accuracy) – captures non‑linear patterns well on this dataset.</p>
+        <p>✅ <strong>Best model:</strong> Decision Tree (92.3% accuracy). Deep Learning achieved competitive results with optimisation techniques.</p>
     </div>
 
     <!-- Visualisations -->
     <div class="section">
-        <h2>📸 Visualisations</h2>
+        <h2>📸 Sample Output / Screenshots</h2>
         <div class="img-grid">
             <div class="img-card">
                 <h3>Model Comparison</h3>
@@ -178,39 +222,46 @@
                 <img src="confusion_matrix.png" alt="Confusion matrix">
             </div>
             <div class="img-card">
-                <h3>Feature Importance</h3>
+                <h3>Feature Importance (Random Forest)</h3>
                 <img src="feature_importance.png" alt="Top 10 features">
             </div>
         </div>
     </div>
 
-    <!-- How to Run -->
+    <!-- How to Run & Dependencies -->
     <div class="section">
         <h2>⚙️ How to Run the Project</h2>
         <ol>
-            <li>Clone the repository: <code>git clone https://github.com/yourusername/gym-exercise-recommendation.git</code></li>
-            <li>Navigate to folder: <code>cd gym-exercise-recommendation</code></li>
-            <li>Install dependencies: <code>pip install -r requirements.txt</code></li>
-            <li>Run the script: <code>python gym_exercise_recomondation.py</code></li>
+            <li><strong>Clone the repository:</strong> <code>git clone https://github.com/aswat0541/gym_exercise_classification.git</code></li>
+            <li><strong>Navigate to folder:</strong> <code>cd gym_exercise_classification</code></li>
+            <li><strong>Install dependencies:</strong> <code>pip install -r requirements.txt</code></li>
+            <li><strong>Run the script:</strong> <code>python gym_exercise_recomondation.py</code></li>
         </ol>
-        <p>Outputs: Console prints performance comparison; saves <code>performance_with_dl.png</code>, <code>confusion_matrix.png</code>, <code>feature_importance.png</code>.</p>
-        <a href="#" class="btn" target="_blank">🔗 View GitHub Repository (replace with your link)</a>
+        <h3>Required Dependencies</h3>
+        <ul>
+            <li>pandas, numpy, matplotlib, seaborn</li>
+            <li>scikit-learn (for ML models)</li>
+            <li>tensorflow>=2.12 (for Deep Learning)</li>
+        </ul>
+        <p><strong>Outputs:</strong> Console prints performance comparison table; saves <code>performance_with_dl.png</code>, <code>confusion_matrix.png</code>, <code>feature_importance.png</code> in the project folder.</p>
+        <a href="https://github.com/aswat0541/gym_exercise_classification" class="btn" target="_blank">🔗 View GitHub Repository</a>
     </div>
 
     <!-- Team Members -->
- <!-- Team Members -->
-<div class="section">
-    <h2>👥 Team Members</h2>
-    <ul>
-        <li>Aswat D</li>
-        <li>Guhan P</li>
-        <li>Akhil Karthick BS</li>
-        <li>Akash SP</li>
-    </ul>
+    <div class="section">
+        <h2>👥 Team Members</h2>
+        <ul>
+            <li><strong>Aswat D</strong></li>
+            <li><strong>Guhan P</strong></li>
+            <li><strong>Akhil Karthick BS</strong></li>
+            <li><strong>Akash SP</strong></li>
+        </ul>
+        <p>Project for <strong>24ADI017 - Machine Learning Techniques</strong> | Project Review 3 | April 2026</p>
+    </div>
 </div>
 
 <footer>
-    <p>Project for 24ADI017 - Machine Learning Techniques | Project Review 3 | April 2026</p>
+    <p>© 2026 Gym Exercise Classification – Safe Workout Recommender System</p>
 </footer>
 </body>
 </html>
